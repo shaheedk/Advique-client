@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background -->
+  <rect width="100" height="100" rx="12" fill="black"/>
+
+  <!-- Chip Border -->
+  <rect x="25" y="25" width="50" height="50" rx="8" fill="none" stroke="white" stroke-width="3"/>
+
+  <!-- 4 Bigger Dots -->
+  <circle cx="38" cy="38" r="4" fill="white"/>
+  <circle cx="62" cy="38" r="4" fill="white"/>
+  <circle cx="38" cy="62" r="4" fill="white"/>
+  <circle cx="62" cy="62" r="4" fill="white"/>
+
+  <!-- Thicker Chip Pins -->
+  <line x1="50" y1="10" x2="50" y2="24" stroke="white" stroke-width="3"/>
+  <line x1="50" y1="76" x2="50" y2="90" stroke="white" stroke-width="3"/>
+  <line x1="10" y1="50" x2="24" y2="50" stroke="white" stroke-width="3"/>
+  <line x1="76" y1="50" x2="90" y2="50" stroke="white" stroke-width="3"/>
+</svg>
