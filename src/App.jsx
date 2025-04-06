@@ -15,8 +15,8 @@ const App = () => {
   return (
     <div className="flex bg-black ">
       {loading ? (
-        // <Preloader />
-        null
+        <Preloader />
+        
       ) : (
         <Home />
       )}

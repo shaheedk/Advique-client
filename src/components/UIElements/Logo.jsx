@@ -2,7 +2,7 @@ import React from 'react';
 
 const Logo = () => {
   return (
-    <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <svg width="300" height="300" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <style>
         {`
           .brain {
@@ -52,45 +52,43 @@ const Logo = () => {
       </style>
 
       {/* Background */}
-      <rect width="100" height="100" rx="10" fill="#0F172A" />
+      <rect width="100" height="100" rx="5" fill="#0d1117" />
 
-      {/* Square AI Grid Style */}
-      <rect x="25" y="25" width="50" height="50" stroke="#38BDF8" strokeWidth="3" className="brain" />
+      {/* AI Grid Style */}
+      <rect x="25" y="25" width="50" height="50" stroke="#8b5cf6" strokeWidth="2" className="brain" />
 
       {/* Circles (Tech Nodes) */}
-      <circle cx="30" cy="30" r="2.5" fill="#38BDF8" className="pulse" />
-      <circle cx="70" cy="30" r="2.5" fill="#38BDF8" className="pulse" />
-      <circle cx="70" cy="70" r="2.5" fill="#38BDF8" className="pulse" />
-      <circle cx="30" cy="70" r="2.5" fill="#38BDF8" className="pulse" />
-      <circle cx="50" cy="50" r="2.5" fill="#38BDF8" className="pulse" />
+      <circle cx="30" cy="30" r="2.5" fill="#a78bfa" className="pulse" />
+      <circle cx="70" cy="30" r="2.5" fill="#a78bfa" className="pulse" />
+      <circle cx="70" cy="70" r="2.5" fill="#a78bfa" className="pulse" />
+      <circle cx="30" cy="70" r="2.5" fill="#a78bfa" className="pulse" />
+      <circle cx="50" cy="50" r="2.5" fill="#a78bfa" className="pulse" />
 
       {/* Lines */}
-      <line x1="30" y1="30" x2="70" y2="30" stroke="#38BDF8" strokeWidth="1.5" className="line" />
-      <line x1="70" y1="30" x2="70" y2="70" stroke="#38BDF8" strokeWidth="1.5" className="line" />
-      <line x1="70" y1="70" x2="30" y2="70" stroke="#38BDF8" strokeWidth="1.5" className="line" />
-      <line x1="30" y1="70" x2="30" y2="30" stroke="#38BDF8" strokeWidth="1.5" className="line" />
-      <line x1="30" y1="30" x2="50" y2="50" stroke="#38BDF8" strokeWidth="1" className="line" />
-      <line x1="70" y1="30" x2="50" y2="50" stroke="#38BDF8" strokeWidth="1" className="line" />
-      <line x1="70" y1="70" x2="50" y2="50" stroke="#38BDF8" strokeWidth="1" className="line" />
-      <line x1="30" y1="70" x2="50" y2="50" stroke="#38BDF8" strokeWidth="1" className="line" />
+      <line x1="30" y1="30" x2="70" y2="30" stroke="#8b5cf6" strokeWidth="1.5" className="line" />
+      <line x1="70" y1="30" x2="70" y2="70" stroke="#8b5cf6" strokeWidth="1.5" className="line" />
+      <line x1="70" y1="70" x2="30" y2="70" stroke="#8b5cf6" strokeWidth="1.5" className="line" />
+      <line x1="30" y1="70" x2="30" y2="30" stroke="#8b5cf6" strokeWidth="1.5" className="line" />
+      <line x1="30" y1="30" x2="50" y2="50" stroke="#8b5cf6" strokeWidth="1" className="line" />
+      <line x1="70" y1="30" x2="50" y2="50" stroke="#8b5cf6" strokeWidth="1" className="line" />
+      <line x1="70" y1="70" x2="50" y2="50" stroke="#8b5cf6" strokeWidth="1" className="line" />
+      <line x1="30" y1="70" x2="50" y2="50" stroke="#8b5cf6" strokeWidth="1" className="line" />
 
       {/* Brand Text */}
-      <text 
-  x="50%" 
-  y="95" 
-  textAnchor="middle" 
-  fill="#38BDF8" 
-  fontSize="9" 
-  fontFamily="Verdana" 
-  className="fade-in" 
-  translate="no"
->
-  Advique AI
-</text>
-
+      <text
+        x="50%"
+        y="95"
+        textAnchor="middle"
+        fill="#8b5cf6"
+        fontSize="9"
+        fontFamily="Verdana"
+        className="fade-in"
+        translate="no"
+      >
+        Advique AI
+      </text>
     </svg>
   );
 };
 
 export default Logo;
-

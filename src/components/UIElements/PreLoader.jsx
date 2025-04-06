@@ -4,7 +4,7 @@ import Logo from './Logo';
 
 const Preloader = () => {
   return (
-    <div className="fixed inset-0 bg-[#0F172A] flex items-center justify-center z-50">
+    <div className="fixed inset-0  bg-black flex items-center justify-center z-50">
       <Logo />
     </div>
   );
