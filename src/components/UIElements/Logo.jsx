@@ -18,12 +18,12 @@ const Logo = () => {
           .line {
             stroke-dasharray: 20;
             stroke-dashoffset: 20;
-            animation: draw 1s ease 1.5s forwards;
+            animation: draw 1s ease 1s forwards;
           }
 
           .fade-in {
             opacity: 0;
-            animation: fadeIn 1s ease 2.5s forwards;
+            animation: fadeIn 1s ease 2s forwards;
           }
 
           @keyframes draw {
