@@ -11,7 +11,7 @@ const Home = () => {
       <div className='flex flex-col w-full'>
       
         <Main/>
-        {/* <Main /> */}
+   
       </div>
     </div>
   )

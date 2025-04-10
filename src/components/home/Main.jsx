@@ -1,16 +1,26 @@
-import React from 'react'
-import Navbar from '../common/Navbar'
-import Body from './Body'
+import React from 'react';
+import Navbar from '../common/Navbar';
+import Body from './Body';
+import Input from './Input';
 
-import Input from './Input'
 const Main = () => {
   return (
-    <div className='p-0'>
-      <Navbar/>
-      <Body/>
-      <Input/>
-    </div>
-  )
-}
+    <div className="w-full min-h-screen bg-black">
+      {/* Top Navigation Bar */}
+      <Navbar />
 
-export default Main
+      {/* Main content body */}
+      <main className="flex-1">
+        <Body />
+      </main>
+
+   
+      <footer >
+        <Input />
+      </footer>
+    </div>
+  );
+};
+
+export default Main;
+
