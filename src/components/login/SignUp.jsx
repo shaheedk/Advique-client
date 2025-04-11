@@ -5,21 +5,19 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const SignUp = ({ onOtpSent }) => {
-  const { setShowLogin, backendUrl,setUser } = useContext(AppContext);
+  const { setShowLogin, backendUrl, setUser, isLoggedIn, setIsLoggedIn, logout } =
+    useContext(AppContext);
   const [isSignUp, setIsSignUp] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token")); // Check if token exists
-
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setError("");
-  
+
     if (isSignUp && (!email || !password || !name)) {
       toast.error("Please fill in all required fields");
       return;
@@ -27,13 +25,13 @@ const SignUp = ({ onOtpSent }) => {
       toast.error("Please fill in all required fields");
       return;
     }
-  
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address");
       return;
     }
-  
+
     setIsSubmitting(true);
     try {
       if (isSignUp) {
@@ -45,20 +43,21 @@ const SignUp = ({ onOtpSent }) => {
         if (data.success) {
           toast.success("OTP sent to your email.");
           onOtpSent(email);
-          setUser({ name: name });
+          setUser({ name });
         } else {
           toast.error(data.message || "Failed to send OTP.");
         }
       } else {
-        const { data } = await axios.post(`${backendUrl}/api/user/login`, {
-          email,
-          password,
-        });
-        console.log("Login response:", data); // Debug login response
+        const { data } = await axios.post(
+          `${backendUrl}/api/user/login`,
+          { email, password },
+          { headers: { "Content-Type": "application/json" } }
+        );
         if (data.success) {
           localStorage.setItem("token", data.token);
+          localStorage.setItem("userName", data.user?.name || name);
           setIsLoggedIn(true);
-          setUser(data.user || { name: name, email }); // Fallback if user is missing
+          setUser({ name: data.user?.name || name, email });
           toast.success("Login successful!");
           setShowLogin(false);
         } else {
@@ -69,26 +68,18 @@ const SignUp = ({ onOtpSent }) => {
       console.error("Submit Error:", error);
       const message =
         error?.response?.data?.message ||
-        (error?.response?.status === 401
+        (error?.response?.status === 400
+          ? "Credentials are missing or invalid."
+          : error?.response?.status === 401
           ? "Unauthorized. Please check your credentials."
           : error?.response?.status === 404
           ? "User not found."
-          : error?.response?.status === 400
-          ? "Invalid request. Please try again."
           : "Something went wrong. Please try again later.");
       toast.error(message);
+      setError(message);
     } finally {
       setIsSubmitting(false);
     }
-  };
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear token
-    setIsLoggedIn(false);
-    toast.success("Logged out successfully!");
-    // Optionally, redirect or reset form
-    setName("");
-    setEmail("");
-    setPassword("");
   };
 
   useEffect(() => {
@@ -111,7 +102,12 @@ const SignUp = ({ onOtpSent }) => {
             <h1 className="text-center text-2xl text-neutral-700">Welcome</h1>
             <p className="text-sm text-center">You are logged in!</p>
             <button
-              onClick={handleLogout}
+              onClick={() => {
+                logout();
+                setName("");
+                setEmail("");
+                setPassword("");
+              }}
               className="w-full mt-4 bg-red-600 text-white py-2 rounded-full hover:bg-red-700 transition-colors"
             >
               Logout
