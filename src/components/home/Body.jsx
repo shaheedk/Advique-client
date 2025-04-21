@@ -73,34 +73,40 @@ const Body = () => {
       ) : (
         <div className="result p-0 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px] ">
           <div className="result p-0 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px] mt-5">
-          <div className="text-white flex flex-col gap-4 px-4">
-            {messages.map((msg, index) => (
-              <div key={index}
-              className={`flex items-start gap-[20px] ${
-                msg.sender === "user" ? "ml-0" : "ml-10 mt-3"
-              }`}>
-                <img
-                  src={
-                    msg.sender === "user"
-                      ? assets.user_icon
-                      : assets.gemini_icon
-                  }
-                  alt=""
-                  className="w-10 rounded-full"
-                />
-                {msg.loading && msg.text === "" ? (
-                  <div className="loader flex flex-col gap-[6px] w-full max-w-[700px]">
-                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
-                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
-                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
-                  </div>
-                ) : (
-                  <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
-                )}
-              </div>
-            ))}
+            <div className="text-white flex flex-col gap-4 px-4">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex items-start gap-[20px] ${
+                    msg.sender === "user" ? "ml-0" : "ml-10 mt-3"
+                  }`}
+                >
+                  <img
+                    src={
+                      msg.sender === "user"
+                        ? assets.user_icon
+                        : assets.gemini_icon
+                    }
+                    alt=""
+                    className="w-10 rounded-full"
+                  />
+                  {msg.loading && msg.text === "" ? (
+                    <div className="loader flex flex-col gap-[6px] w-full max-w-[700px]">
+                      <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                      <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                      <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                    </div>
+                  ) : (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: msg.text.replace(/\*+/g, "<br/>"),
+                      }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
         </div>
       )}
       <div className="absolute bottom-0 left-0 right-0 max-w-[900px] py-0 px-20 m-auto">

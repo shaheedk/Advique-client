@@ -68,44 +68,73 @@ export const AppProvider = ({ children }) => {
   const [loadingD, setLoadingD] = useState(false);
   const [messages, setMessages] = useState([]);
   const [result, setResult] = useState("");
-  const sendMessage = async () => {
-    if (!input.trim()) return;
 
-    const userMsg = { sender: "user", text: input };
-    const loadingBotMsg = { sender: "bot", text: "", loading: true };
+const delayParams=(index,nextWord)=>{
 
-    setMessages((prev) => [...prev, userMsg, loadingBotMsg]);
-    setInput("");
-    setRecentPrompt(input);
-    setShowResult(true);
+}
 
-    try {
-      const res = await axios.post(`${backendUrl}/api/chat`, {
-        message: input,
-      });
+const sendMessage = async () => {
+  if (!input.trim()) return;
 
-      const botReply = res.data.reply;
+  const userMsg = { sender: "user", text: input };
+  const loadingBotMsg = { sender: "bot", text: "", loading: true };
 
+  setMessages((prev) => [...prev, userMsg, loadingBotMsg]);
+  setInput("");
+  setRecentPrompt(input);
+  setShowResult(true);
+
+  // Typing effect function
+  const typeText = (text, callback) => {
+    let index = 0;
+    const speed = 30; // typing speed in ms
+
+    const interval = setInterval(() => {
       setMessages((prev) =>
         prev.map((msg, i, arr) =>
           i === arr.length - 1 && msg.loading
-            ? { sender: "bot", text: botReply }
+            ? { ...msg, text: text.slice(0, index + 1) }
+            : msg
+        )
+      );
+
+      index++;
+      if (index === text.length) {
+        clearInterval(interval);
+        callback(); // Finish loading
+      }
+    }, speed);
+  };
+
+  try {
+    const res = await axios.post(`${backendUrl}/api/chat`, {
+      message: input,
+    });
+
+    const botReply = res.data.reply;
+
+    typeText(botReply, () => {
+      setMessages((prev) =>
+        prev.map((msg, i, arr) =>
+          i === arr.length - 1 && msg.loading
+            ? { ...msg, loading: false }
             : msg
         )
       );
       setResult(botReply);
-    } catch (error) {
-      const errorMsg = "⚠️ Error: Couldn't reach API.";
-      setMessages((prev) =>
-        prev.map((msg, i, arr) =>
-          i === arr.length - 1 && msg.loading
-            ? { sender: "bot", text: errorMsg }
-            : msg
-        )
-      );
-      setResult(errorMsg);
-    }
-  };
+    });
+  } catch (error) {
+    const errorMsg = "⚠️ Error: Couldn't reach API.";
+    setMessages((prev) =>
+      prev.map((msg, i, arr) =>
+        i === arr.length - 1 && msg.loading
+          ? { sender: "bot", text: errorMsg }
+          : msg
+      )
+    );
+    setResult(errorMsg);
+  }
+};
 
   // Return the context provider with the states and functions as value
   return (
