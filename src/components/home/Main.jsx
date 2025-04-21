@@ -1,6 +1,6 @@
 import React from 'react';
 import Body from './Body';
-import Input from './Input';
+// import Input from './Input';
 
 const Main = () => {
   return (
@@ -9,9 +9,9 @@ const Main = () => {
       <main className="flex-1">
         <Body />
       </main>
-      <footer >
+      {/* <footer >
         <Input />
-      </footer>
+      </footer> */}
     </div>
   );
 };

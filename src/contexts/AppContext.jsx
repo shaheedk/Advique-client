@@ -6,13 +6,17 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [showLogin, setShowLogin] = useState(false);
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  // Check if the user is already logged in based on localStorage token
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [user, setUser] = useState(
     localStorage.getItem("userName")
       ? { name: localStorage.getItem("userName") }
       : null
   );
+
   const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
@@ -28,6 +32,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("Logout Error:", error);
     } finally {
+      // Clear user data and token from localStorage and state
       localStorage.removeItem("token");
       localStorage.removeItem("userName");
       setIsLoggedIn(false);
@@ -37,10 +42,12 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // useEffect runs on initial component mount to set authentication state
   useEffect(() => {
     const token = localStorage.getItem("token");
     const savedUserName = localStorage.getItem("userName");
-console.log(token)
+    console.log(token);
+
     if (token && savedUserName) {
       setIsLoggedIn(true);
       setUser({ name: savedUserName });
@@ -48,9 +55,56 @@ console.log(token)
       setIsLoggedIn(false);
       setUser(null);
     }
+
     setLoading(false);
   }, []);
 
+
+// function for setup the api and chat 
+
+  
+const [input, setInput] = useState("");
+const [recentPrompt, setRecentPrompt] = useState('');
+const [prevPrompts, setPrevPrompts] = useState([]);
+const [showResult, setShowResult] = useState(false);
+const [loadingD, setLoadingD] = useState(false);
+const [messages, setMessages] = useState([]); 
+const[result,setResult]=useState('')
+const sendMessage = async () => {
+  if (!input.trim()) return;
+
+  const userMsg = { sender: "user", text: input };
+  setMessages((prev) => [...prev, userMsg]);
+  setLoadingD(true); 
+  setShowResult(true);
+  setRecentPrompt(input);
+
+  try {
+    const res = await axios.post(`${backendUrl}/api/chat`, {
+      message: input,
+    });
+
+    const botReply = res.data.reply;
+    setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
+    setResult(botReply); 
+
+  } catch (error) {
+    console.error("API error:", error);
+    const errorMsg = "⚠️ Error: Couldn't reach API.";
+    setMessages((prev) => [...prev, { sender: "bot", text: errorMsg }]);
+    setResult(errorMsg);
+  }
+
+  setInput("");
+  setLoadingD(false); 
+  setShowResult(true);
+};
+
+
+  
+
+
+  // Return the context provider with the states and functions as value
   return (
     <AppContext.Provider
       value={{
@@ -63,6 +117,20 @@ console.log(token)
         setUser,
         logout: handleLogout,
         loading,
+        sendMessage,
+        input, 
+        setInput,
+        recentPrompt,
+        setRecentPrompt,
+        prevPrompts,
+        setPrevPrompts,
+        showResult,
+         setShowResult,
+         loadingD,
+         setLoadingD,
+         messages,
+         setMessages,
+         result
       }}
     >
       {children}
@@ -70,4 +138,5 @@ console.log(token)
   );
 };
 
+// Export the AppProvider as default for wrapping the app
 export default AppProvider;
