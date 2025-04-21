@@ -59,50 +59,53 @@ export const AppProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  // function for setup the api and chat
 
-// function for setup the api and chat 
+  const [input, setInput] = useState("");
+  const [recentPrompt, setRecentPrompt] = useState("");
+  const [prevPrompts, setPrevPrompts] = useState([]);
+  const [showResult, setShowResult] = useState(false);
+  const [loadingD, setLoadingD] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [result, setResult] = useState("");
+  const sendMessage = async () => {
+    if (!input.trim()) return;
 
-  
-const [input, setInput] = useState("");
-const [recentPrompt, setRecentPrompt] = useState('');
-const [prevPrompts, setPrevPrompts] = useState([]);
-const [showResult, setShowResult] = useState(false);
-const [loadingD, setLoadingD] = useState(false);
-const [messages, setMessages] = useState([]); 
-const[result,setResult]=useState('')
-const sendMessage = async () => {
-  if (!input.trim()) return;
+    const userMsg = { sender: "user", text: input };
+    const loadingBotMsg = { sender: "bot", text: "", loading: true };
 
-  const userMsg = { sender: "user", text: input };
-  setMessages((prev) => [...prev, userMsg]);
-  setLoadingD(true); 
-  setShowResult(true);
-  setRecentPrompt(input);
+    setMessages((prev) => [...prev, userMsg, loadingBotMsg]);
+    setInput("");
+    setRecentPrompt(input);
+    setShowResult(true);
 
-  try {
-    const res = await axios.post(`${backendUrl}/api/chat`, {
-      message: input,
-    });
+    try {
+      const res = await axios.post(`${backendUrl}/api/chat`, {
+        message: input,
+      });
 
-    const botReply = res.data.reply;
-    setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
-    setResult(botReply); 
+      const botReply = res.data.reply;
 
-  } catch (error) {
-    console.error("API error:", error);
-    const errorMsg = "⚠️ Error: Couldn't reach API.";
-    setMessages((prev) => [...prev, { sender: "bot", text: errorMsg }]);
-    setResult(errorMsg);
-  }
-
-  setInput("");
-  setLoadingD(false); 
-  setShowResult(true);
-};
-
-
-  
-
+      setMessages((prev) =>
+        prev.map((msg, i, arr) =>
+          i === arr.length - 1 && msg.loading
+            ? { sender: "bot", text: botReply }
+            : msg
+        )
+      );
+      setResult(botReply);
+    } catch (error) {
+      const errorMsg = "⚠️ Error: Couldn't reach API.";
+      setMessages((prev) =>
+        prev.map((msg, i, arr) =>
+          i === arr.length - 1 && msg.loading
+            ? { sender: "bot", text: errorMsg }
+            : msg
+        )
+      );
+      setResult(errorMsg);
+    }
+  };
 
   // Return the context provider with the states and functions as value
   return (
@@ -118,19 +121,19 @@ const sendMessage = async () => {
         logout: handleLogout,
         loading,
         sendMessage,
-        input, 
+        input,
         setInput,
         recentPrompt,
         setRecentPrompt,
         prevPrompts,
         setPrevPrompts,
         showResult,
-         setShowResult,
-         loadingD,
-         setLoadingD,
-         messages,
-         setMessages,
-         result
+        setShowResult,
+        loadingD,
+        setLoadingD,
+        messages,
+        setMessages,
+        result,
       }}
     >
       {children}

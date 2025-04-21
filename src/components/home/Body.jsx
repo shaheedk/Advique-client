@@ -12,11 +12,13 @@ const Body = () => {
     recentPrompt,
     showResult,
     loadingD,
-    rusultData,
+    resultData,
     setInput,
     input,
     messages,
   } = useContext(AppContext);
+  const filteredMessages = messages.slice(1); // Skip the first message (user's prompt)
+
   return (
     <div>
       {!showResult ? (
@@ -69,27 +71,36 @@ const Body = () => {
           </div>
         </div>
       ) : (
-        <div className="result p-0 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px]">
-          <div className="my-6 mx-0 flex items-center gap-[20px]">
-            <img src={assets.user_icon} alt="" className="w-10 rounded-full" />
-            <p>{recentPrompt}</p>
-          </div>
-          <div className="flex items-start gap-[20px]  ml-10 ">
-            <img src={assets.gemini_icon} alt="" width={40} />
-            {loadingD ? (
-              <div className="loader w-full flex flex-col gap-[10px] ">
-                <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 bg-[length:800px_50px] h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
-                <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 bg-[length:800px_50px] h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
-                <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 bg-[length:800px_50px] h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+        <div className="result p-0 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px] ">
+          <div className="result p-0 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px] mt-5">
+          <div className="text-white flex flex-col gap-4 px-4">
+            {messages.map((msg, index) => (
+              <div key={index}
+              className={`flex items-start gap-[20px] ${
+                msg.sender === "user" ? "ml-0" : "ml-10 mt-3"
+              }`}>
+                <img
+                  src={
+                    msg.sender === "user"
+                      ? assets.user_icon
+                      : assets.gemini_icon
+                  }
+                  alt=""
+                  className="w-10 rounded-full"
+                />
+                {msg.loading && msg.text === "" ? (
+                  <div className="loader flex flex-col gap-[6px] w-full max-w-[700px]">
+                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                    <hr className="rounded-md border-none bg-gradient-to-r from-violet-700 via-black to-violet-900 h-[16px] opacity-60 shadow-lg animate-[loader_3s_linear_infinite]" />
+                  </div>
+                ) : (
+                  <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                )}
               </div>
-            ) : (
-              <div className="text-white">
-                {messages.map((msg, index) => (
-                  <p key={index}>{msg.text}</p>
-                ))}
-              </div>
-            )}
+            ))}
           </div>
+        </div>
         </div>
       )}
       <div className="absolute bottom-0 left-0 right-0 max-w-[900px] py-0 px-20 m-auto">
