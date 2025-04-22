@@ -122,7 +122,7 @@ const Body = () => {
           <div className="flex items-center gap-3">
             <img
               className="w-6 cursor-pointer"
-              src={assets.gallery_icon}
+              src=''
               alt=""
             />
             <img className="w-6 cursor-pointer" src={assets.mic_icon} alt="" />
