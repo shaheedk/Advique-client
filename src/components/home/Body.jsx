@@ -16,6 +16,8 @@ const Body = () => {
     setInput,
     input,
     messages,
+    setShowLogin,
+    user,
   } = useContext(AppContext);
   const filteredMessages = messages.slice(1); // Skip the first message (user's prompt)
 
@@ -112,25 +114,35 @@ const Body = () => {
       <div className="absolute bottom-0 left-0 right-0 max-w-[900px] py-0 px-20 m-auto">
         <div className="flex items-center justify-between gap-5 mb-3 ml-6 bg-white py-2 px-5 rounded-[50px]">
           <input
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (user) {
+                  sendMessage();
+                } else {
+                  setShowLogin(true); // or alert("Please login to continue.")
+                }
+              }
+            }}
             onChange={(e) => setInput(e.target.value)}
             value={input}
             className="flex-grow flex-shrink basis-0 bg-transparent border-none outline-none p-2 text-[18px]"
             type="text"
             placeholder="Enter your prompt here"
           />
+
           <div className="flex items-center gap-3">
-            <img
-              className="w-6 cursor-pointer"
-              src=''
-              alt=""
-            />
             <img className="w-6 cursor-pointer" src={assets.mic_icon} alt="" />
             <img
               className="w-6 cursor-pointer"
               src={assets.send_icon}
-              alt=""
-              onClick={() => sendMessage()}
+              alt="send"
+              onClick={() => {
+                if (user) {
+                  sendMessage();
+                } else {
+                  setShowLogin(true); // show the login modal or component
+                }
+              }}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [showLogin, setShowLogin] = useState(false);
 
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   // Check if the user is already logged in based on localStorage token

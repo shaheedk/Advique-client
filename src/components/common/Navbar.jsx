@@ -7,7 +7,7 @@ const Navbar = () => {
 
   if (loading) {
     return (
-      <header className="flex justify-between items-center px-4 py-3 bg-black w-full">
+      <header className="flex justify-between items-center px-4 py-3 bg-black w-full fixed">
         <div>Loading...</div>
       </header>
     );
