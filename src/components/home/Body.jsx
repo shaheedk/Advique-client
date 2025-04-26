@@ -60,7 +60,7 @@ const Body = () => {
       )}
 
       {/* Input Section */}
-      <div className="absolute bottom-4 lg:bottom-5 left-0 right-0 w-full max-w-[900px] px-4 md:px-10 lg:px-20 mx-auto">
+      <div className="absolute sm:bottom-4 lg:bottom-5 left-0 right-0 w-full max-w-[900px] px-4 md:px-10 lg:px-20 mx-auto">
         <div className="flex items-center justify-between gap-3 md:gap-5 mb-3 bg-white py-2 px-4 md:px-5 rounded-full">
           <input
             onKeyDown={(e) => {
