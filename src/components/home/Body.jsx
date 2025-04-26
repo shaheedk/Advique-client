@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import { LuMessageSquare } from "react-icons/lu";
-import { FaCode, FaCompass } from "react-icons/fa";
-import { MdLightbulbOutline } from "react-icons/md";
+
 import assets from "../../assets/assets";
-import Heading from "./Heading";
 import { AppContext } from "../../contexts/AppContext";
+import Heading from "./Heading";
 
 const Body = () => {
   const {
@@ -20,17 +18,15 @@ const Body = () => {
     user,
   } = useContext(AppContext);
 
-  const filteredMessages = messages.slice(1); // Optional, based on your need
-
   return (
-    <div className="relative min-h-screen">
-      {!showResult ? (
-        <div>
-          <Heading />
-          {/* Other non-result content if needed */}
-        </div>
-      ) : (
-        <div className="p-4 py-5 max-h-[70vh] overflow-y-scroll text-white max-w-[900px] mx-auto mt-5">
+    <div className="relative min-h-screen pb-40"> 
+      {!showResult && (
+        <Heading/>
+      )}
+
+      {/* Message Section */}
+      {showResult && (
+        <div className="p-4 py-5 max-h-[70vh] overflow-y-scroll scroll-smooth text-white w-full max-w-[900px] mx-auto mt-5 scrollbar-hide">
           <div className="flex flex-col gap-4">
             {messages.map((msg, index) => (
               <div
@@ -63,7 +59,7 @@ const Body = () => {
         </div>
       )}
 
-      {/* COMMON INPUT BOX at the bottom */}
+      {/* Input Section */}
       <div className="absolute bottom-0 left-0 right-0 w-full max-w-[900px] px-4 md:px-10 lg:px-20 mx-auto">
         <div className="flex items-center justify-between gap-3 md:gap-5 mb-3 bg-white py-2 px-4 md:px-5 rounded-full">
           <input
@@ -110,4 +106,3 @@ const Body = () => {
 };
 
 export default Body;
-
