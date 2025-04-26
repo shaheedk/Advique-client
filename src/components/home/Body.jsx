@@ -112,46 +112,48 @@ const Body = () => {
           </div>
         </div>
       )}
-      <div className="absolute bottom-0 left-0 right-0 max-w-[900px] py-0 px-20 m-auto">
-        <div className="flex items-center justify-between gap-5 mb-3 ml-6 bg-white py-2 px-5 rounded-[50px]">
-          <input
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                if (user) {
-                  sendMessage();
-                } else {
-                  setShowLogin(true); // or alert("Please login to continue.")
-                }
-              }
-            }}
-            onChange={(e) => setInput(e.target.value)}
-            value={input}
-            className="flex-grow flex-shrink basis-0 bg-transparent border-none outline-none p-2 text-[18px]"
-            type="text"
-            placeholder="Enter your prompt here"
-          />
+      <div className="absolute bottom-0 left-0 right-0 w-full max-w-[900px] px-4 md:px-10 lg:px-20 m-auto">
+  <div className="flex items-center justify-between gap-3 md:gap-5 mb-3 mx-0 md:mx-6 bg-white py-2 px-4 md:px-5 rounded-full">
+    <input
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          if (user) {
+            sendMessage();
+          } else {
+            setShowLogin(true);
+          }
+        }
+      }}
+      onChange={(e) => setInput(e.target.value)}
+      value={input}
+      className="flex-grow bg-transparent border-none outline-none p-2 text-[16px] md:text-[18px]"
+      type="text"
+      placeholder="Enter your prompt here"
+    />
 
-          <div className="flex items-center gap-3">
-            <img className="w-6 cursor-pointer" src={assets.mic_icon} alt="" />
-            <img
-              className="w-6 cursor-pointer"
-              src={assets.send_icon}
-              alt="send"
-              onClick={() => {
-                if (user) {
-                  sendMessage();
-                } else {
-                  setShowLogin(true); // show the login modal or component
-                }
-              }}
-            />
-          </div>
-        </div>
-        <p className="text-sm my-3.5 mt-auto text-center font-light text-white">
-          Advique AI may display inaccurate information, including about people,
-          so please double-check its responses.
-        </p>
-      </div>
+    <div className="flex items-center gap-2 md:gap-3">
+      <img className="w-5 md:w-6 cursor-pointer" src={assets.mic_icon} alt="mic" />
+      <img
+        className="w-5 md:w-6 cursor-pointer"
+        src={assets.send_icon}
+        alt="send"
+        onClick={() => {
+          if (user) {
+            sendMessage();
+          } else {
+            setShowLogin(true);
+          }
+        }}
+      />
+    </div>
+  </div>
+
+  <p className="text-xs md:text-sm my-2.5 text-center font-light text-white">
+    Advique AI may display inaccurate information, including about people,
+    so please double-check its responses.
+  </p>
+</div>
+
     </div>
   );
 };
