@@ -27,7 +27,8 @@ const Body = () => {
         <div>
           <Heading />
 
-          <div className="max-w-[900px] mx-auto px-6 pt-12 text-white">
+          <div className="hidden md:block md:max-w-[900px] md:w-full mx-auto px-6 pt-12 text-white">
+
             {/* Cards */}
             <div className="flex gap-4 ">
               {/* Card 1 */}
