@@ -18,7 +18,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex bg-black min-h-screen">
+    <div className="flex bg-black sm:max-h-screen md:min-h-screen">
       <ToastContainer />
       {loading ? (
         <Preloader />
