@@ -15,7 +15,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`sm:min-h-[100vh-400px] lg:min-h-screen  flex flex-col justify-between bg-gray-900 text-gray-100 py-6 transition-all duration-300 ${extended && !isMobile ? 'px-4' : 'px-1'}`}>
+    <div className={`min-h-screen  flex flex-col justify-between bg-gray-900 text-gray-100 py-6 transition-all duration-300 ${extended && !isMobile ? 'px-4' : 'px-1'}`}>
       {/* Top Section */}
       <div className="flex flex-col">
         <FiMenu

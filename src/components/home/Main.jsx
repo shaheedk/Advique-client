@@ -9,9 +9,7 @@ const Main = () => {
       <main className="flex-1">
         <Body />
       </main>
-      {/* <footer >
-        <Input />
-      </footer> */}
+     
     </div>
   );
 };

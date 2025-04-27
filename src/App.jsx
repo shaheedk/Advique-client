@@ -5,8 +5,7 @@ import {  AppContext } from "./contexts/AppContext";
 import Home from "./pages/Home";
 import AuthFlow from "./components/login/AuthFlow";
 import Preloader from "./components/UIElements/PreLoader";
-import Navbar from "./components/common/Navbar";
-import ChatBot from "./components/ChatBot";
+
 
 const App = () => {
   const { showLogin } = useContext(AppContext);
@@ -32,7 +31,7 @@ const App = () => {
           </Routes>
         </div>
       )}
-      {/* <ChatBot/> */}
+  
     </div>
   );
 };
