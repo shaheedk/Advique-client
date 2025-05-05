@@ -19,6 +19,9 @@ const Body = () => {
   } = useContext(AppContext);
 
   return (
+    <div className="w-full min-h-screen bg-black">
+
+    <main className="flex-1">
     <div className="relative min-h-screen pb-40"> 
       {!showResult && (
         <Heading/>
@@ -102,6 +105,9 @@ const Body = () => {
         </p>
       </div>
     </div>
+    </main>
+     
+     </div>
   );
 };
 

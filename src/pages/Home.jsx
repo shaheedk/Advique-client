@@ -1,6 +1,6 @@
 import React from "react";
 
-import Main from "../components/home/Main";
+import Body from "../components/home/Body";
 import Navbar from '../layout/Navbar'
 import Sidebar from "../layout/Sidebar";
 
@@ -11,7 +11,7 @@ const Home = () => {
 
       <div className="flex flex-col w-full">
         <Navbar />
-        <Main />
+        <Body />
       </div>
     </div>
   );
