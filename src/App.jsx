@@ -25,10 +25,7 @@ const App = () => {
         <div className="w-full">
         
           {showLogin && <AuthFlow />}
-          <Routes>
-            <Route path="/" element={<Home />} />
-          
-          </Routes>
+         <Home/>
         </div>
       )}
   

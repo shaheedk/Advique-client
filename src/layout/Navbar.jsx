@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import assets from "../../assets/assets";
-import { AppContext } from "../../contexts/AppContext";
+import assets from "../assets/assets";
+import { AppContext } from "../contexts/AppContext";
 
 const Navbar = () => {
   const { user, setShowLogin, logout, loading } = useContext(AppContext);

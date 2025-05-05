@@ -1,17 +1,16 @@
 import React from "react";
-import Sidebar from "../components/home/Sidebar";
+
 import Main from "../components/home/Main";
-import Navbar from "../components/common/Navbar";
+import Navbar from '../layout/Navbar'
+import Sidebar from "../layout/Sidebar";
 
 const Home = () => {
   return (
     <div className="flex w-full">
-      <Sidebar />
+      <Sidebar/>
 
       <div className="flex flex-col w-full">
         <Navbar />
-
-        {/* Main content below the navbar */}
         <Main />
       </div>
     </div>
