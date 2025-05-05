@@ -1,11 +1,9 @@
-import { useEffect, useState,useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
 import { ToastContainer } from "react-toastify";
-import {  AppContext } from "./contexts/AppContext";
+import { AppContext } from "./contexts/AppContext";
 import Home from "./pages/Home";
 import AuthFlow from "./components/login/AuthFlow";
 import Preloader from "./components/UIElements/PreLoader";
-
 
 const App = () => {
   const { showLogin } = useContext(AppContext);
@@ -23,15 +21,12 @@ const App = () => {
         <Preloader />
       ) : (
         <div className="w-full">
-        
           {showLogin && <AuthFlow />}
-         <Home/>
+          <Home />
         </div>
       )}
-  
     </div>
   );
 };
-
 
 export default App;
